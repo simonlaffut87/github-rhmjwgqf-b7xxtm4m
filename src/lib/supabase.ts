@@ -96,7 +96,18 @@ const createMockClient = () => ({
     }),
     resetPasswordForEmail: () => Promise.resolve({ 
       error: { message: 'No Supabase connection available - running in offline mode' } 
-    })
+    }),
+    signOut: () => Promise.resolve({ error: null }),
+    onAuthStateChange: (callback: (event: string, session: any) => void) => {
+      // Return a mock subscription object
+      return {
+        data: {
+          subscription: {
+            unsubscribe: () => {}
+          }
+        }
+      };
+    }
   },
   rpc: () => Promise.resolve({ 
     data: null, 
